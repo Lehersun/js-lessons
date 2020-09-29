@@ -96,23 +96,3 @@ button {
 button:hover {
     cursor: pointer;
 }
-
-body {
-    height: 100%;
-    position: relative;
-}
-
-h1 {
-    margin: 25vh auto 10vh;
-    text-align: center;
-}
-
-h2 {
-    margin: 0 auto;
-    text-align: center;
-}
-
-div {
-    margin: 10vh auto;
-    text-align: center;
-}

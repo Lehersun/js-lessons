@@ -1,0 +1,46 @@
+body {
+    position: relative;
+    overflow: hidden;
+}
+
+.top {
+    position: relative;
+    height: 70vh;
+    width: 100%;
+    background-color: hsla(110, 100%, 50%, 0.596);
+    padding-top: 30vh;
+}
+
+.primer {
+    font-size: 100px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    position: relative;
+    height: 30vh;
+    width: 100%;
+    background-color: hsl(214, 100%, 50%);
+    padding-top: 5vh;
+}
+
+.bottom div {
+    padding: 50px;
+    font-size: 100px;
+    font-weight: 900;
+    border: 1px solid #150c9110;
+    box-shadow: 20px 20px 20px #130e0e3a;
+    background-color: gray;
+    transition: 1s;
+}
+
+.bottom div:hover {
+    box-shadow: 1px 1px 1px #130e0e;
+    cursor: pointer;
+    background-color: rgb(165, 161, 161);
+
+}
