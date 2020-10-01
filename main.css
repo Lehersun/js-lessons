@@ -7,11 +7,12 @@ body {
     position: relative;
     height: 70vh;
     width: 100%;
-    background-color: hsla(110, 100%, 50%, 0.596);
+    background-color: hsl(214, 100%, 50%);
     padding-top: 30vh;
+    transition: 1s;
 }
 
-.primer {
+.top-block {
     font-size: 100px;
     font-weight: 900;
     text-align: center;
@@ -28,19 +29,41 @@ body {
     padding-top: 5vh;
 }
 
-.bottom div {
+.bottom-block {
     padding: 50px;
     font-size: 100px;
     font-weight: 900;
     border: 1px solid #150c9110;
     box-shadow: 20px 20px 20px #130e0e3a;
-    background-color: gray;
     transition: 1s;
 }
 
-.bottom div:hover {
+
+.bottom-block:hover {
     box-shadow: 1px 1px 1px #130e0e;
     cursor: pointer;
-    background-color: rgb(165, 161, 161);
+}
 
+.bottom__item1 {
+    background-color: green;
+}
+
+.bottom__item2 {
+    background-color: yellow;
+}
+
+.bottom__item3 {
+    background-color: red;
+}
+
+.top__in-progress {
+    background-color: hsla(110, 100%, 50%, 0.596);
+}
+
+.in-progress {
+    background-color: gray;
+}
+
+.in-progress:hover {
+    background-color: rgb(165, 161, 161);
 }
