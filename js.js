@@ -119,7 +119,7 @@ $(document).ready(function () {
               );
             } else {
               $(".top-block").text(
-                name + "Вы набрали " +
+                name + " Вы набрали " +
                 result +
                 " баллов из " +
                 plus.length +
