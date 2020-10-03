@@ -1,14 +1,18 @@
-const fs = require("fs");
+const mysql = require("mysql2");
 
-// асинхронное чтение
-fs.readFile("hello.txt", "utf8",
-    function (error, data) {
-        console.log("Асинхронное чтение файла");
-        if (error) throw error; // если возникла ошибка
-        console.log(data); // выводим считанные данные
-    });
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: "usersdb2",
 
-// синхронное чтение
-console.log("Синхронное чтение файла")
-let fileContent = fs.readFileSync("hello.txt", "utf8");
-console.log(fileContent);
+    password: "root"
+});
+
+const sql = `SELECT * FROM users`;
+
+connection.query(sql, function (err, results) {
+    if (err) console.log(err);
+    console.log(results);
+});
+
+connection.end();
