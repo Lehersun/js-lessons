@@ -13,9 +13,10 @@ body {
 }
 
 .top-block {
-    font-size: 100px;
+    font-size: 80px;
     font-weight: 900;
     text-align: center;
+    line-height: 130%;
 }
 
 .bottom {
@@ -55,18 +56,6 @@ body {
 
 .bottom__item3 {
     background-color: red;
-}
-
-.top__in-progress {
-    background-color: hsla(110, 100%, 50%, 0.596);
-}
-
-.in-progress {
-    background-color: gray;
-}
-
-.in-progress:hover {
-    background-color: rgb(165, 161, 161);
 }
 
 .top-block__input {

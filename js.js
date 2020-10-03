@@ -134,13 +134,13 @@ $(document).ready(function () {
 
     // Задание 2
     else if (clickedBut == "Задание 2") {
-      $(".top-block").html("C какого года считаем высокосные года?");
+      $(".top-block").html("C какого года считаем високосные года?");
       $("form").css("display", "block");
       $(".bottom-block").css("display", "none");
       $(".bottom").append(`<button class="bottom__btn">Далее</button>`)
       digitMask2();
       $("body").on("click", "button", function () {
-        firstVal = $("input").val();
+        firstVal = +$("input").val();
         if (!firstVal) {
           error1()
         } else {
@@ -149,7 +149,8 @@ $(document).ready(function () {
           $(".top-block").html("И до какого года?");
           $("input").val("");
           $("body").on("click", "button", function () {
-            secondVal = $(".top-block__input").val();
+            secondVal = +$(".top-block__input").val();
+
             if (!secondVal) {
               error1()
             } else if (secondVal < firstVal) {
@@ -184,6 +185,11 @@ $(document).ready(function () {
       });
 
       $("body").on("click", ".bottom__btn1", function () {
+        let inputVal = parseInt($(".top-block__input").val());
+        $(".top-block__input").val("");
+        if (inputVal) {
+          result = result + inputVal;
+        }
         delEventListner();
         $("form").css("display", "none");
         $(".bottom__btn").css("display", "none");
