@@ -1,161 +1,194 @@
 $(document).ready(function () {
 
+  $("form").css("display", "none");
+  $(".top-block").html("JS lesson 2");
 
+  $(".bottom__item1").html("Задание 1");
+  $(".bottom__item2").html("Задание 2");
+  $(".bottom__item3").html("Задание 3");
 
-  $(".top-block").html("Введите Ваше имя");
-  $(".bottom__item1").css("display", "none");
-  $(".bottom__item3").css("display", "none");
-  $(".bottom__item2").css("display", "none");
-  $(".bottom__item2").addClass("next-button");
+  function delEventListner() {
+    $("body").off("click");
+  }
 
-  $(".bottom").append(`<button class="bottom__btn bottom-block">Далее</button>`)
-
-
-
-  // МАСКА для ввода
-  let inputname = $(".top-block__input-name");
-  inputname.bind("change keyup input click", function () {
-    if (this.value.match(/[^а-яА-Яa-zA-Z\s]/g)) {
-      this.value = this.value.replace(/[^а-яА-Яa-zA-Z\s]/g, "");
-    }
-  });
-
-
-  $(".bottom__btn").click(function () {
-    let name = $(".top-block__input-name").val();
-    if (!name.trim()) {
-      if ($(".error").length == 0) {
-        $("form").append(`<div class="error">Имя обязательно</div>`);
-        $(".top-block__input-name").css("border", "3px solid red");
-
+  function digitMask() {
+    let inputField = $(".top-block__input");
+    inputField.bind("change keyup input click", function () {
+      if (this.value.match(/[^0-9.-\s]/g)) {
+        this.value = this.value.replace(/[^0-9.-\s]/g, "");
       }
+    });
+  }
+
+  function digitMask2() {
+    let inputField = $(".top-block__input");
+    inputField.bind("change keyup input click", function () {
+      if (this.value.match(/[^0-9\s]/g)) {
+        this.value = this.value.replace(/[^0-9\s]/g, "");
+      }
+    });
+  }
+
+  function task1() {
+    if (firstVal == secondVal) {
+      result = "они равны!";
+    } else if (firstVal < secondVal) {
+      result = "первое число меньше второго!";
     } else {
-      $("button").remove();
-      $(".bottom__item1").css("display", "block");
-      $(".bottom__item3").css("display", "block");
-      $(".bottom__item2").css("display", "block");
+      result = "первое число больше второго!";
+    }
+  }
 
-
-      $("form").remove();
-
-      $(".top-block").html("Выбор сложности");
-      $(".bottom__item1").html("Низкая");
-      $(".bottom__item2").html("Средняя");
-      $(".bottom__item3").html("Высокая");
-
-
-      //массив для заданий
-      let plus = [];
-      //массив с вариантами ответов
-      let plusotvet = [];
-      //массив с правильными ответами
-      let right = [];
-      let plusresult = []; //сюда записываем ответы пользователя
-      let checklist = []; //здесь данные по сверке с ответами
-      let result = 0; //Переменная для подсчета баллов
-      let num; //длина масива с заданиями
-      let str;
-      let col;
-      let primer;
-
-
-      function reshaem() {
-        num = plus.length - 1; //длина масива с заданиями
-        str = 0;
-        col = 0;
-        primer = plus[str];
-
-        $(".top-block").html(primer + " = ?");
-        // Записываем первый пример
-        while (col <= 2) {
-          otvet = plusotvet[str][col];
-          $(".bottom__item" + (col + 1)).html(otvet);
-          col++;
+  function task2() {
+    let years = [];
+    result = 0;
+    for (let i = firstVal; i < secondVal; i++) {
+      if ((i % 4) == 0) {
+        if ((i % 100) !== 0) {
+          years.push(i);
+          result++;
+        } else if ((i % 400) == 0) {
+          years.push(i);
+          result++;
         }
-        //Запускаем цикл по клику на ответ
-        $(".bottom-block").click(function () {
-          let choose = $(this).text();
-          plusresult.push(choose);
-          if (str < num) {
-            str++;
-            primer = plus[str];
-            $(".top-block").html(primer + " = ?");
-            for (col = 0; col <= 2; col++) {
-              otvet = plusotvet[str][col];
-              $(".bottom__item" + (col + 1)).html(otvet);
-            }
-          } else {
-            //Проверка результата и вывод сообщения
-            for (i = 0; i <= num; i++) {
-              check = plusresult[i] == right[i];
-              checklist.push(check);
-            }
-            for (i = 0; i <= num; i++) {
-              if (checklist[i] == true) {
-                result++;
-              }
-            }
-            $(".bottom-block").remove();
-            $(".bottom").prepend(`<div class="back">Начать сначала</div>`);
-            $(".back").click(function () {
-              window.location.reload();
-            });
-
-            if (result == 1) {
-              $(".top-block").text(
-                name + " Вы набрали " + result + " балл из " + plus.length + " возможных"
-              );
-            } else if (result == 0) {
-              $(".top-block").text(
-                name + " Вы набрали " +
-                result +
-                " баллов из " +
-                plus.length +
-                " возможных"
-              );
-            } else if ((result >= 2) & (result <= 4)) {
-              $(".top-block").text(
-                name + " Вы набрали " + result + " балла из " + plus.length + " возможных"
-              );
-            } else {
-              $(".top-block").text(
-                name + " Вы набрали " +
-                result +
-                " баллов из " +
-                plus.length +
-                " возможных"
-              );
-            }
-          }
-        });
-
       }
+    }
+    console.log(years);
 
-      $(".bottom-block").click(function () {
-        p = $(this).html();
-        $(".bottom-block").addClass("in-progress");
-        $(".top").addClass("top__in-progress");
+  }
 
-        if (p == "Средняя") {
-          plus = midtask;
-          plusotvet = midvar;
-          right = midright;
+  function error1() {
+    let hasError = $(".top-block__input-error").length;
+    if (hasError == 0) {
+      $("form").append(`<div class="error">введите корректное значение</div>`);
+      $(".top-block__input").addClass("top-block__input-error");
+    }
+  }
 
-          reshaem()
+  function error2() {
+    let hasError = $(".top-block__input-error").length;
+    if (hasError == 0) {
+      $("form").append(`<div class="error">второй год не может быть меньше первого</div>`);
+      $(".top-block__input").addClass("top-block__input-error");
+    }
+  }
 
-        } else if (p == "Низкая") {
-          plus = easytask;
-          plusotvet = easyvar;
-          right = easyright;
+  function removeError() {
+    $(".error").remove();
+    $(".top-block__input").removeClass("top-block__input-error");
+  }
 
-          reshaem()
+  function getBack() {
+    $("button").html("Назад");
+    $("body").on("click", "button", function () {
+      window.location.reload()
+    });
+  }
 
-        } else if (p == "Высокая") {
-          plus = hardtask;
-          plusotvet = hardvar;
-          right = hardright;
-          reshaem()
+
+  let firstVal;
+  let secondVal;
+  let result;
+
+
+
+  $("body").on("click", ".bottom-block", function () {
+
+    let clickedBut = $(this).text();
+
+
+    // Задание 1
+
+    if (clickedBut == "Задание 1") {
+      delEventListner();
+      $(".top-block").html("Введите первое число");
+      $(".bottom").append(`<button class="bottom__btn">Далее</button>`)
+      $("form").css("display", "block");
+      $(".bottom-block").css("display", "none");
+      digitMask();
+
+      $("body").on("click", "button", function () {
+        firstVal = +$("input").val();
+        if (!firstVal) {
+          error1()
+        } else {
+          removeError();
+          delEventListner();
+          $(".top-block").html("Введите второе число");
+          $("input").val("");
+          $("body").on("click", "button", function () {
+            secondVal = +$(".top-block__input").val();
+            if (!secondVal) {
+              error1()
+            } else {
+              delEventListner();
+              task1();
+              $(".top-block").html("Вы ввели числа " + firstVal + " и " + secondVal + " и я Вас уверяю " + result);
+              $("form").css("display", "none");
+              getBack()
+            }
+          });
         }
+      });
+    }
+
+    // Задание 2
+    else if (clickedBut == "Задание 2") {
+      $(".top-block").html("C какого года считаем высокосные года?");
+      $("form").css("display", "block");
+      $(".bottom-block").css("display", "none");
+      $(".bottom").append(`<button class="bottom__btn">Далее</button>`)
+      digitMask2();
+      $("body").on("click", "button", function () {
+        firstVal = $("input").val();
+        if (!firstVal) {
+          error1()
+        } else {
+          removeError();
+          delEventListner();
+          $(".top-block").html("И до какого года?");
+          $("input").val("");
+          $("body").on("click", "button", function () {
+            secondVal = $(".top-block__input").val();
+            if (!secondVal) {
+              error1()
+            } else if (secondVal < firstVal) {
+              error2()
+            } else {
+              delEventListner();
+              task2();
+              $(".top-block").html("Всего получилось " + result + " и все они выведены в консоль");
+              $("form").css("display", "none");
+              getBack()
+            }
+          });
+        }
+      });
+    }
+
+    // Задание 3
+    else {
+      $(".top-block").html("Введите какое-нибудь число");
+      $("form").css("display", "block");
+      $(".bottom-block").css("display", "none");
+      $(".bottom").append(`<button class="bottom__btn">Далее</button>`)
+      $(".bottom").append(`<button class="bottom__btn1">Хватит</button>`)
+      result = 0;
+
+      $("body").on("click", ".bottom__btn", function () {
+        let inputVal = parseInt($(".top-block__input").val());
+        $(".top-block__input").val("");
+        if (inputVal) {
+          result = result + inputVal;
+        }
+      });
+
+      $("body").on("click", ".bottom__btn1", function () {
+        delEventListner();
+        $("form").css("display", "none");
+        $(".bottom__btn").css("display", "none");
+        $(".top-block").html("Сумма всех введенных чисел равна  " + result);
+        getBack()
       });
     }
   });
