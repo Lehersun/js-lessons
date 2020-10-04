@@ -1,43 +1,85 @@
 // Задача
-document.querySelector("#button1").addEventListener("click", (e) => {
+function month(time) {
+  let months = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+  ];
+  let i = months[time.getMonth()];
+  return i;
+}
 
-  function generateRandomDigit() {
-    let digit = Math.floor(Math.random() * 100);
-    return digit;
+function day(time) {
+  let days = [
+    "понедельник",
+    "вторник",
+    "среда",
+    "четверг",
+    "пятница",
+    "суббота",
+    "воскресенье",
+  ];
+  let i = days[time.getDay() - 1];
+  return i;
+}
+
+function hour(time) {
+  let h = time.getHours();
+  if (h == 0 || (h >= 5 && h <= 20)) {
+    h = h + " часов ";
+  } else if (h == 1 || h == 21) {
+    h = h + " час ";
+  } else {
+    h = h + " часа ";
   }
+  return h;
+}
 
-  let popitki = 10;
-  let i = generateRandomDigit();
+function minsec(word, time) {
+  let end = ["", "а", "ы", "ы", "ы", "", "", "", "", ""];
+  let k;
+  if (word == "минут") {
+    k = time.getMinutes();
+  } else if (word == "секунд") {
+    k = time.getSeconds();
+  } else {
+    k = "необходимо передать значение секунд или минут";
+  }
+  let key;
+  if (k == 11 || k == 12) {
+    key = "";
+  } else {
+    key = end[k % 10];
+  }
+  return k + " " + word + key;
+}
 
+function tickTak() {
+  let time = new Date();
+  console.log(
+    "Сегодня " +
+      time.getDate() +
+      " " +
+      month(time) +
+      " " +
+      time.getFullYear() +
+      " года, " +
+      day(time) +
+      ", " +
+      hour(time) +
+      minsec("минут", time) +
+      " " +
+      minsec("секунд", time)
+  );
+}
 
-  do {
-    let val = prompt("Я загадал число от 0 до 100. Отгадаете?(у Вас осталось " + popitki + " попыток)");
-    console.log(i);
-
-    if (val == null) {
-      alert("Хорошо поиграли");
-      break;
-    } else if (isNaN(val)) {
-      alert("Это не число, попробуйте снова");
-    } else if (!val.trim()) {
-      alert("Строка не может быть пустой");
-    } else {
-      if (parseInt(val) < i) {
-        alert("Больше!");
-      } else if (parseInt(val) > i) {
-        alert("Меньше!");
-      } else {
-        alert("Как ты догадался, что я загадал " + i + "?");
-        let newGame = confirm("Сыграем еще разок?");
-        if (newGame == true) {
-          i = generateRandomDigit();
-          popitki = 11;
-        } else {
-          break
-        }
-      }
-    }
-    popitki--;
-  } while (popitki > 0);
-  alert("Хорошо поиграли");
-});
+setInterval(tickTak, 1000);
