@@ -1,5 +1,8 @@
 function task1(firstVal, secondVal) {
   let result;
+  firstVal = parseInt(firstVal);
+  secondVal = parseInt(secondVal);
+
   if (firstVal == secondVal) {
     result = "они равны!";
   } else if (firstVal < secondVal) {
@@ -14,7 +17,7 @@ function task2(firstVal, secondVal) {
   let result;
   let years = [];
   result = 0;
-  for (let i = firstVal; i < secondVal; i++) {
+  for (let i = firstVal; i <= secondVal; i++) {
     if (i % 4 == 0) {
       if (i % 100 !== 0) {
         years.push(i);
