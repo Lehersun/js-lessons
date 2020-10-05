@@ -55,7 +55,7 @@ function minsec(word, time) {
     k = "необходимо передать значение секунд или минут";
   }
   let key;
-  if (k == 11 || k == 12) {
+  if ((k >= 11) & (k <= 14)) {
     key = "";
   } else {
     key = end[k % 10];
