@@ -1,4 +1,5 @@
-// Задача
+// Задача 1
+
 function month(time) {
   let months = [
     "января",
@@ -67,19 +68,61 @@ function tickTak() {
   let time = new Date();
   console.log(
     "Сегодня " +
-      time.getDate() +
-      " " +
-      month(time) +
-      " " +
-      time.getFullYear() +
-      " года, " +
-      day(time) +
-      ", " +
-      hour(time) +
-      minsec("минут", time) +
-      " " +
-      minsec("секунд", time)
+    time.getDate() +
+    " " +
+    month(time) +
+    " " +
+    time.getFullYear() +
+    " года, " +
+    day(time) +
+    ", " +
+    hour(time) +
+    minsec("минут", time) +
+    " " +
+    minsec("секунд", time)
   );
 }
 
-setInterval(tickTak, 1000);
+function timeInterval() {
+  setInterval(tickTak, 1000);
+  button1.removeEventListener("click", timeInterval);
+}
+
+// Задача 2
+
+function checkPass(login, password) {
+  let base = ["Лёха ,admin , admin", "Вова, vova , vovapass", "Вася, vasya , vasyapass", "Петя, petya , petyapass", "Сэнсэй, teacher , superuser"];
+}
+
+
+function authenticator() {
+  let popitki = 3;
+
+
+  while (true) {
+    let login = prompt("Введите логин");
+
+    if (login == null) {
+      alert("Не очень-то и хотелось");
+      break;
+    } else if (val.trim() == "") {
+      alert("Строка не может быть пустой");
+    } else {
+      let pass = prompt("Введите пароль");
+      if (pass == null) {
+        alert("Не очень-то и хотелось");
+        break;
+      } else if (val.trim() == "") {
+        alert("Строка не может быть пустой");
+      } else {
+        checkPass(login, pass);
+
+      }
+    }
+  }
+}
+
+
+// Ивенты на кнопках
+button1.addEventListener("click", timeInterval);
+button2.addEventListener("click", authenticator);
