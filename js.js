@@ -1,184 +1,68 @@
-// Задача 1
-
-function month(time) {
-  let months = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
-  ];
-  let i = months[time.getMonth()];
-  return i;
+"use strict"
+function User(firstName,lastName) {
+  let date = new Date();
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.regDate = function(){
+        
+      return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(); 
+    };
 }
 
-function day(time) {
-  let days = [
-    "понедельник",
-    "вторник",
-    "среда",
-    "четверг",
-    "пятница",
-    "суббота",
-    "воскресенье",
-  ];
-  let i = days[time.getDay() - 1];
-  return i;
-}
+function UserList(){
 
-function hour(time) {
-  let h = time.getHours();
-  if (h == 0 || (h >= 5 && h <= 20)) {
-    h = h + " часов ";
-  } else if (h == 1 || h == 21) {
-    h = h + " час ";
-  } else {
-    h = h + " часа ";
-  }
-  return h;
-}
+    this.users = [];
 
-function minsec(word, time) {
-  let end = ["", "а", "ы", "ы", "ы", "", "", "", "", ""];
-  let k;
-  if (word == "минут") {
-    k = time.getMinutes();
-  } else if (word == "секунд") {
-    k = time.getSeconds();
-  } else {
-    k = "необходимо передать значение секунд или минут";
-  }
-  let key;
-  if ((k >= 11) & (k <= 14)) {
-    key = "";
-  } else {
-    key = end[k % 10];
-  }
-  return k + " " + word + key;
-}
-
-function tickTak() {
-  let time = new Date();
-  console.log(
-    "Сегодня " +
-    time.getDate() +
-    " " +
-    month(time) +
-    " " +
-    time.getFullYear() +
-    " года, " +
-    day(time) +
-    ", " +
-    hour(time) +
-    minsec("минут", time) +
-    " " +
-    minsec("секунд", time)
-  );
-}
-
-function timeInterval() {
-  setInterval(tickTak, 1000);
-  button1.removeEventListener("click", timeInterval);
-}
-
-// Задача 2
-
-function checkPass(login, password) {
-  let base = [{
-    name: "Лёха",
-    log: "admin",
-    pass: "admin"
-  }, {
-    name: "Сэнсэй",
-    log: "teacher",
-    pass: "superuser"
-  }, {
-    name: "Вова",
-    log: "vova",
-    pass: "vovapass"
-  }, {
-    name: "Вася",
-    log: "vasya",
-    pass: "vasyapass"
-  }, {
-    name: "Петя",
-    log: "petya",
-    pass: "petyapass"
-  }];
-  let result = base.find(item => item.log == login);
-
-  if (result == undefined) {
-    result = false;
-  } else {
-    if (result.pass === password) {
-      result = result.name;
-    } else {
-      result = false;
+    this.addUser = function(regUser){
+      
+      this.users.push(new User(regUser[0],regUser[1]));
     }
 
-  }
-  return result
+    this.getAllUsers =  function (){
+      return this.users;
+    }
 }
 
+function output(users){
+  button1.insertAdjacentHTML("afterEnd", `<table border="2px" bordercolor="gray"><tbody><tr><td>Номер п/п</td><td>Имя</td><td>Фамилия</td><td>Дата регистрации</td></tr></tbody><tbody id="table"></tbody></table>`);
+  let n = users.length;
+  for (let i = 0; i<n; i++){
+    let allUsers = "<tr><td>" + (i + 1) + "</td><td>" + users[i].firstName + "</td><td>" + users[i].lastName + "</td><td>" + users[i].regDate() + "</td></tr>";
+    table.insertAdjacentHTML("beforeEnd", allUsers);
+  }
+}
 
-function authenticator() {
-  let attempts = 3;
-  let check = false;
-  while (check == false) {
-    if (attempts > 0) {
-      let login = prompt("Введите логин");
-
-      if (login == null) {
-        alert("Не очень-то и хотелось");
-        break;
-      } else if (login.trim() == "") {
-        alert("Строка не может быть пустой");
-      } else {
-        do {
-          let pass = prompt("Введите пароль (осталось попыток: " + attempts + ")");
-          if (pass == null) {
-            alert("Попробуйте ввести логин заново (осталось попыток: " + attempts + ")");
-            break;
-          } else if (pass.trim() == "") {
-            alert("Строка не может быть пустой");
-          } else {
-
-            check = checkPass(login, pass);
-
-            if (check == false) {
-              alert("Нет пользователя с таким логином и паролем");
-              attempts--;
-            } else if (check === "Сэнсэй") {
-              alert("Спасибо за проверку задания, Учитель");
-              break;
-
-
-            } else {
-              alert(check + ", добро пожаловать!")
-              break;
-            }
-          }
-
-        } while (attempts > 0);
-      }
-    } else {
-      alert("У Вас больше не осталось попыток")
+function start (){
+  var elem = document.getElementById("table");
+  if (elem !== null){
+    elem.parentNode.parentNode.removeChild(elem.parentNode);
+  }
+  
+  let list = new UserList();
+  while (true){
+    let regUser = prompt("Введите имя и фамилию через пробел, для регистрации");
+    if (regUser == null){
+      if (list.users.length == 0) {
+      alert("Вы не ввели ни одного пользователя");
       break;
+      } else {
+        output(list.getAllUsers());
+        break;
+      }
+         
+    } else if(regUser.trim() == ""){
+      alert("поле не может быть пустым");
+    } else {
+      regUser = regUser.trim();
+      regUser = regUser.replace(/\s+/g,' ');
+      regUser = regUser.split(" ");
+      if(regUser[1]){
+        list.addUser(regUser);
+      } else {
+        alert("Необходимо указать фамилию");
+      }
     }
   }
-
-
-
 }
 
-
-// Ивенты на кнопках
-button1.addEventListener("click", timeInterval);
-button2.addEventListener("click", authenticator);
+button1.addEventListener("click",start);
